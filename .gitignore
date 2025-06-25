@@ -34,3 +34,4 @@ go.work.sum
 # Demo programs
 hello/hello
 raylib/basic/basic
+raylib/showimage/showimage
