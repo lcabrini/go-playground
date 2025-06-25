@@ -30,4 +30,7 @@ go.work.sum
 # Editor/IDE
 .idea/
 .vscode/
+
+# Demo programs
 hello/hello
+raylib/basic/basic
