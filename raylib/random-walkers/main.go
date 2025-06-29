@@ -43,6 +43,23 @@ func main() {
 		for i, walker := range walkers {
 			walkers[i].Pos.X += float32(rl.GetRandomValue(-1, 1))
 			walkers[i].Pos.Y += float32(rl.GetRandomValue(-1, 1))
+
+			if walkers[i].Pos.X > float32(Width) {
+				walkers[i].Pos.X = 0
+			}
+
+			if walkers[i].Pos.X < 0 {
+				walkers[i].Pos.X = float32(Width)
+			}
+
+			if walkers[i].Pos.Y > float32(Height) {
+				walkers[i].Pos.Y = 0
+			}
+
+			if walkers[i].Pos.Y < 0 {
+				walkers[i].Pos.Y = float32(Height)
+			}
+
 			rl.ImageDrawPixelV(image, walker.Pos, walker.Color)
 		}
 
