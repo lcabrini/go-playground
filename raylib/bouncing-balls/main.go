@@ -49,6 +49,12 @@ func main() {
 			balls = append(balls, ball)
 		}
 
+		if rl.IsKeyPressed(rl.KeyD) {
+			if len(balls) > 0 {
+				balls = balls[:len(balls)-1]
+			}
+		}
+
 		for i := 0; i < len(balls); i += 1 {
 			balls[i].Pos.X += balls[i].Velocity.X
 			balls[i].Pos.Y += balls[i].Velocity.Y
