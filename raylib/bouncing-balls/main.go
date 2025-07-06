@@ -1,7 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"math"
+	"os"
+	"strconv"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
@@ -21,12 +24,29 @@ type Ball struct {
 }
 
 func main() {
+	var err error
+
+	count := 1
+	if len(os.Args[1:]) == 1 {
+		count, err = strconv.Atoi(os.Args[1])
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Invalid value for initial ball count: %s\n", os.Args[1])
+			os.Exit(-1)
+		}
+	} else if len(os.Args[1:]) > 1 {
+		fmt.Fprintf(os.Stderr, "usage: %s [INITIAL_BALL_COUNT]\n", os.Args[0])
+		os.Exit(-1)
+	}
+
 	rl.SetConfigFlags(rl.FlagVsyncHint)
 	rl.InitWindow(Width, Height, Title)
 	rl.SetTargetFPS(60)
 
 	var balls []Ball
-	appendBall(&balls)
+
+	for i := 0; i < count; i += 1 {
+		appendBall(&balls)
+	}
 
 	for !rl.WindowShouldClose() {
 		mp := rl.GetMousePosition()
