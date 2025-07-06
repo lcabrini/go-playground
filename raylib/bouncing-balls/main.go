@@ -1,6 +1,10 @@
 package main
 
-import rl "github.com/gen2brain/raylib-go/raylib"
+import (
+	"math"
+
+	rl "github.com/gen2brain/raylib-go/raylib"
+)
 
 const (
 	Width  int32  = 1024
@@ -9,10 +13,11 @@ const (
 )
 
 type Ball struct {
-	Pos      rl.Vector2
-	Velocity rl.Vector2
-	Color    rl.Color
-	Radius   float32
+	Pos       rl.Vector2
+	Velocity  rl.Vector2
+	Color     rl.Color
+	Radius    float32
+	MouseOver bool
 }
 
 func main() {
@@ -24,6 +29,8 @@ func main() {
 	appendBall(&balls)
 
 	for !rl.WindowShouldClose() {
+		mp := rl.GetMousePosition()
+
 		if rl.IsKeyPressed(rl.KeyB) {
 			appendBall(&balls)
 		}
@@ -62,13 +69,24 @@ func main() {
 				balls[i].Pos.Y = balls[i].Radius
 				balls[i].Velocity.Y *= -1
 			}
+
+			d := math.Sqrt(math.Pow(float64(mp.X-balls[i].Pos.X), 2) + math.Pow(float64(mp.Y-balls[i].Pos.Y), 2))
+			balls[i].MouseOver = false
+			if d < float64(balls[i].Radius) {
+				balls[i].MouseOver = true
+			}
 		}
 
 		rl.BeginDrawing()
 		rl.ClearBackground(rl.Black)
 
 		for _, ball := range balls {
-			rl.DrawCircleV(ball.Pos, ball.Radius, rl.White)
+			c := rl.White
+			if ball.MouseOver {
+				c = rl.Yellow
+			}
+
+			rl.DrawCircleV(ball.Pos, ball.Radius, c)
 			rl.DrawCircleV(ball.Pos, ball.Radius-2, ball.Color)
 		}
 
@@ -89,5 +107,6 @@ func appendBall(balls *[]Ball) {
 	b := uint8(rl.GetRandomValue(0, 255))
 	ball.Color = rl.Color{R: r, G: g, B: b, A: 255}
 	ball.Radius = float32(rl.GetRandomValue(10, 70))
+	ball.MouseOver = false
 	*balls = append(*balls, ball)
 }
