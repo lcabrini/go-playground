@@ -21,32 +21,11 @@ func main() {
 	rl.SetTargetFPS(60)
 
 	var balls []Ball
-
-	ball := Ball{}
-	ball.Pos.X = float32(rl.GetRandomValue(0, Width))
-	ball.Pos.Y = float32(rl.GetRandomValue(0, Height))
-	ball.Velocity.X = float32(rl.GetRandomValue(-5, 5))
-	ball.Velocity.Y = float32(rl.GetRandomValue(-5, 5))
-	r := uint8(rl.GetRandomValue(0, 255))
-	g := uint8(rl.GetRandomValue(0, 255))
-	b := uint8(rl.GetRandomValue(0, 255))
-	ball.Color = rl.Color{R: r, G: g, B: b, A: 255}
-	ball.Radius = float32(rl.GetRandomValue(10, 70))
-	balls = append(balls, ball)
+	appendBall(&balls)
 
 	for !rl.WindowShouldClose() {
 		if rl.IsKeyPressed(rl.KeyB) {
-			ball := Ball{}
-			ball.Pos.X = float32(rl.GetRandomValue(0, Width))
-			ball.Pos.Y = float32(rl.GetRandomValue(0, Height))
-			ball.Velocity.X = float32(rl.GetRandomValue(-5, 5))
-			ball.Velocity.Y = float32(rl.GetRandomValue(-5, 5))
-			r := uint8(rl.GetRandomValue(0, 255))
-			g := uint8(rl.GetRandomValue(0, 255))
-			b := uint8(rl.GetRandomValue(0, 255))
-			ball.Color = rl.Color{R: r, G: g, B: b, A: 255}
-			ball.Radius = float32(rl.GetRandomValue(10, 70))
-			balls = append(balls, ball)
+			appendBall(&balls)
 		}
 
 		if rl.IsKeyPressed(rl.KeyD) {
@@ -92,4 +71,18 @@ func main() {
 	}
 
 	rl.CloseWindow()
+}
+
+func appendBall(balls *[]Ball) {
+	ball := Ball{}
+	ball.Pos.X = float32(rl.GetRandomValue(0, Width))
+	ball.Pos.Y = float32(rl.GetRandomValue(0, Height))
+	ball.Velocity.X = float32(rl.GetRandomValue(-5, 5))
+	ball.Velocity.Y = float32(rl.GetRandomValue(-5, 5))
+	r := uint8(rl.GetRandomValue(0, 255))
+	g := uint8(rl.GetRandomValue(0, 255))
+	b := uint8(rl.GetRandomValue(0, 255))
+	ball.Color = rl.Color{R: r, G: g, B: b, A: 255}
+	ball.Radius = float32(rl.GetRandomValue(10, 70))
+	*balls = append(*balls, ball)
 }
