@@ -46,6 +46,16 @@ func main() {
 			appendBall(&balls)
 		}
 
+		if rl.IsMouseButtonPressed(rl.MouseButtonLeft) {
+			for i := 0; i < len(balls); i += 1 {
+				if balls[i].MouseOver {
+					vx := float32(rl.GetRandomValue(-5, 5))
+					vy := float32(rl.GetRandomValue(-5, 5))
+					balls[i].Velocity = rl.Vector2{X: vx, Y: vy}
+				}
+			}
+		}
+
 		for i := 0; i < len(balls); i += 1 {
 			balls[i].Pos.X += balls[i].Velocity.X
 			balls[i].Pos.Y += balls[i].Velocity.Y
