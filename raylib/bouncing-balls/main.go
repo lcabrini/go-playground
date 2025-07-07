@@ -109,7 +109,6 @@ func main() {
 		}
 
 		rl.BeginDrawing()
-		//rl.ClearBackground(rl.Black)
 		rl.DrawTexture(bgTexture, 0, 0, rl.White)
 
 		for _, ball := range balls {
@@ -118,6 +117,7 @@ func main() {
 				c = rl.Yellow
 			}
 
+			rl.DrawCircle(int32(ball.Pos.X)+30, int32(ball.Pos.Y)+30, ball.Radius, rl.Color{R: 0, G: 0, B: 0, A: 100})
 			rl.DrawCircleV(ball.Pos, ball.Radius, c)
 			rl.DrawCircleV(ball.Pos, ball.Radius-2, ball.Color)
 		}
