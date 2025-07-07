@@ -42,6 +42,7 @@ func main() {
 	rl.InitWindow(Width, Height, Title)
 	rl.SetTargetFPS(60)
 
+	bgTexture := rl.LoadTexture("../../resources/gray-bg-texture.jpg")
 	var balls []Ball
 
 	for i := 0; i < count; i += 1 {
@@ -108,7 +109,8 @@ func main() {
 		}
 
 		rl.BeginDrawing()
-		rl.ClearBackground(rl.Black)
+		//rl.ClearBackground(rl.Black)
+		rl.DrawTexture(bgTexture, 0, 0, rl.White)
 
 		for _, ball := range balls {
 			c := rl.White
@@ -123,6 +125,7 @@ func main() {
 		rl.EndDrawing()
 	}
 
+	rl.UnloadTexture(bgTexture)
 	rl.CloseWindow()
 }
 
